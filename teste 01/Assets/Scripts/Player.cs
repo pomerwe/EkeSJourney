@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     public bool doublejump;
 
     private Rigidbody2D rig;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,25 @@ public class Player : MonoBehaviour
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
         transform.position += movement * Time.deltaTime * Speed;
+
+        if(Input.GetAxis("Horizontal") > 0f)
+        {
+            anim.SetBool("walk", true);
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        }
+        if (Input.GetAxis("Horizontal") < 0f)
+        {
+            anim.SetBool("walk", true);
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+
+        }
+        if (Input.GetAxis("Horizontal") == 0f)
+        {
+            anim.SetBool("walk", false);
+        }
+
+
+
     }
     void Jump()
     {
@@ -37,11 +58,13 @@ public class Player : MonoBehaviour
             {
                 rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
                 doublejump = true;
+                anim.SetBool("jump", true);
             }
             else
             {
                 if(doublejump)
                 {
+                    rig.velocity = Vector2.zero;
                     rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
                     doublejump = false;
                 }
@@ -56,6 +79,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == 8)
         {
             isjumping = false;
+            anim.SetBool("jump", false);
         }
     }
     void OnCollisionExit2D(Collision2D collision)
