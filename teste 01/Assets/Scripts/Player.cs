@@ -30,8 +30,9 @@ public class Player : MonoBehaviour
     }
     void Move()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += movement * Time.deltaTime * speed;
+        Vector2 movement = rig.velocity;
+        movement.x = Input.GetAxis("Horizontal") * speed;
+        rig.velocity = movement;
 
         if(Input.GetAxis("Horizontal") > 0f)
         {
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
         }
         if (Input.GetAxis("Horizontal") == 0f)
         {
+            ResetXForce();
+            rig.velocity = movement;
             anim.SetBool("walk", false);
         }
 
@@ -56,17 +59,18 @@ public class Player : MonoBehaviour
     {
         if(Input.GetButtonDown("Jump"))
         {
-            if(!isjumping)
+           
+            if (!isjumping)
             {
+                ResetYForce();
                 rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                doublejump = true;
                 anim.SetBool("jump", true);
             }
             else
             {
                 if(doublejump)
                 {
-                    rig.velocity = Vector2.zero;
+                    ResetYForce();
                     rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                     doublejump = false;
                 }
@@ -78,11 +82,11 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if(collision.gameObject.layer == 8)
         {
             isjumping = false;
             anim.SetBool("jump", false);
+            ResetYForce();
         }
     }
     void OnCollisionExit2D(Collision2D collision)
@@ -90,6 +94,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 8)
         {
             isjumping = true;
+            doublejump = true;
         }
     }
     
@@ -100,6 +105,21 @@ public class Player : MonoBehaviour
             coll.gameObject.GetComponent<Animator>().SetBool("Touched", true);
             score += coll.gameObject.GetComponent<GenericItem>().value;
         }
+    }
+
+
+    public void ResetYForce()
+    {
+        var velocity = rig.velocity;
+        velocity.y = 0;
+        rig.velocity = velocity;
+    }
+
+    public void ResetXForce()
+    {
+        var velocity = rig.velocity;
+        velocity.x = 0;
+        rig.velocity = velocity;
     }
 
 }
