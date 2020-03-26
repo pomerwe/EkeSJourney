@@ -425,6 +425,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plataforma que cai (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
 --- !u!4 &143545117 stripped
@@ -742,7 +762,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 424105933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plataformas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +777,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424105932}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 102.897575, y: 10.333278, z: -47.242188}
+  m_LocalPosition: {x: 102.897575, y: 10.333278, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 752796291}
@@ -840,6 +860,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plataforma que cai (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
@@ -1141,6 +1181,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plataforma que cai
       objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
 --- !u!4 &625024195 stripped
@@ -1341,6 +1401,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plataforma que cai
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
@@ -7992,7 +8072,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 897345042}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 214df25fa5bd55d43baa281dae4f88f2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -8467,6 +8547,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plataforma que cai (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
 --- !u!4 &1193184463 stripped
@@ -8588,8 +8688,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 7640154844475331614, guid: 00ba9bfcac38890469d81600d3a29bc1,
+        type: 3}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640154844475331614, guid: 00ba9bfcac38890469d81600d3a29bc1,
+        type: 3}
+      propertyPath: jumpForce
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00ba9bfcac38890469d81600d3a29bc1, type: 3}
+--- !u!1 &1291651830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7640154844475331603, guid: 00ba9bfcac38890469d81600d3a29bc1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1291651829}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1354750392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13727,6 +13843,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plataforma que cai (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
 --- !u!4 &1634671911 stripped
@@ -13802,6 +13938,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plataforma que cai (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
 --- !u!4 &1637025527 stripped
@@ -13876,6 +14032,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plataforma que cai (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
@@ -14027,6 +14203,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plataforma que cai (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
 --- !u!4 &1853420200 stripped
@@ -14097,6 +14293,7 @@ GameObject:
   - component: {fileID: 1894998707}
   - component: {fileID: 1894998706}
   - component: {fileID: 1894998705}
+  - component: {fileID: 1894998708}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -14163,12 +14360,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894998704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 2.5, z: -10}
+  m_LocalPosition: {x: 2, y: 2.5, z: -10}
   m_LocalScale: {x: 1.679, y: 1.679, z: 1.679}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894998708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894998704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8357f3c8e7015814fa54dbbf6b7f9ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1291651830}
+  xMax: 0
+  xMin: 0
+  yMax: 0
+  yMin: 0
+  urgencyCamera: 0
+  currentY: 0
+  currentX: 0
 --- !u!1001 &1969274901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14235,6 +14452,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plataforma que cai (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
@@ -14310,6 +14547,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plataforma que cai (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601555120973919871, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545417387791892684, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546723846912541933, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585080871218550002, guid: 659e100474fbbc44a9c006930ae535e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659e100474fbbc44a9c006930ae535e5, type: 3}
