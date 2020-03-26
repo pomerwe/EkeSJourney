@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public float Speed;
-    public float JumpForce;
+    private int score = 0;
+    public Text scoreText;
+
+    public float speed;
+    public float jumpForce;
 
     public bool isjumping;
     public bool doublejump;
@@ -18,8 +22,8 @@ public class Player : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        //SyncSollution.Sync(true);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -29,7 +33,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += movement * Time.deltaTime * Speed;
+        transform.position += movement * Time.deltaTime * speed;
 
         if(Input.GetAxis("Horizontal") > 0f)
         {
@@ -56,7 +60,7 @@ public class Player : MonoBehaviour
         {
             if(!isjumping)
             {
-                rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+                rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 doublejump = true;
                 anim.SetBool("jump", true);
             }
@@ -65,7 +69,7 @@ public class Player : MonoBehaviour
                 if(doublejump)
                 {
                     rig.velocity = Vector2.zero;
-                    rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+                    rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                     doublejump = false;
                 }
 
@@ -76,6 +80,7 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if(collision.gameObject.layer == 8)
         {
             isjumping = false;
@@ -90,4 +95,14 @@ public class Player : MonoBehaviour
         }
     }
     
+    void OnTriggerEnter2D(Collider2D  coll)
+    {
+        if (coll.gameObject.GetComponent<GenericItem>() != null)
+        {
+            coll.gameObject.GetComponent<Animator>().SetBool("Touched", true);
+            score += coll.gameObject.GetComponent<GenericItem>().value;
+            scoreText.text = score.ToString();
+        }
+    }
+
 }
