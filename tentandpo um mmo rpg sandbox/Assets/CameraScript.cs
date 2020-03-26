@@ -45,8 +45,6 @@ public class CameraScript : MonoBehaviour
         //lookMaria.x -= 0.5f;
         lookMaria.y +=  1;
         transform.LookAt(lookMaria);
-
-        Debug.Log(mouseSensibility);
     }
 
 
@@ -59,7 +57,7 @@ public class CameraScript : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
         }
         
         yaw += mouseSensibility * Input.GetAxis("Mouse X");
