@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Ninja : MonoBehaviour {
 	private Rigidbody2D myrigidbody;
 	[SerializeField]
 	private float movementspeed = 10f;
