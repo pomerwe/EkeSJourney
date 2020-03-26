@@ -68,11 +68,12 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if(doublejump)
+                if(!doublejump)
                 {
                     ResetYForce();
                     rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                    doublejump = false;
+                    doublejump = true;
+                    anim.SetBool("double", true);
                 }
 
             }
@@ -85,7 +86,9 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == 8)
         {
             isjumping = false;
+            doublejump = false;
             anim.SetBool("jump", false);
+            anim.SetBool("double", false);
             ResetYForce();
         }
     }
@@ -94,7 +97,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 8)
         {
             isjumping = true;
-            doublejump = true;
         }
     }
     
