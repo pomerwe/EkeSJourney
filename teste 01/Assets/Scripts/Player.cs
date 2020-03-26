@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private int score = 0;
-    public Text scoreText;
+    public int score = 0;
 
-    public float speed;
-    public float jumpForce;
+    public float speed = 4;
+    public float jumpForce = 8;
 
     public bool isjumping;
     public bool doublejump;
@@ -22,7 +21,6 @@ public class Player : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        //SyncSollution.Sync(true);
     }
     // Update is called once per frame
     void Update()
@@ -101,7 +99,6 @@ public class Player : MonoBehaviour
         {
             coll.gameObject.GetComponent<Animator>().SetBool("Touched", true);
             score += coll.gameObject.GetComponent<GenericItem>().value;
-            scoreText.text = score.ToString();
         }
     }
 
