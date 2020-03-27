@@ -19,6 +19,10 @@ public class PlataformScript : MonoBehaviour
             rig.isKinematic = false;
             Invoke("RemoveRigidbody", 5);
         }
+        if(collision.gameObject.layer == 9)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -29,5 +33,6 @@ public class PlataformScript : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         transform.position = startPosition;
         rig.isKinematic = true;
+        rig.angularVelocity = 0;
     }
 }
