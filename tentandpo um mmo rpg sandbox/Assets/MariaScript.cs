@@ -6,9 +6,10 @@ public class MariaScript : MonoBehaviour
 {
     public int movementSpeed = 5;
 
-    public GameObject hips;
     private Rigidbody rb;
     private Animator anim;
+
+    public bool frontSlash = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,47 +26,97 @@ public class MariaScript : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
             anim.SetBool("isRunningBack", false);
+            anim.SetBool("isRunningBack", false);
+            anim.SetBool("strafeLeft", false);
+            anim.SetBool("strafeRight", false);
         }
 
-        hips.transform.localPosition = new Vector3(-3.537999e-09f, 1.052462f, 0.01765147f);
 
         var rot = transform.eulerAngles;
         rot.x = 0;
         rot.z = 0;
         transform.eulerAngles = rot;
 
-        if(Input.GetKey(KeyCode.S))
+        if(CanMove())
         {
-            anim.SetBool("isRunningBack", true);
-            var move = -1 * movementSpeed * Time.deltaTime;
-            transform.Translate(new Vector3(0, 0, move));
+            if (Input.GetKey(KeyCode.S))
+            {
+                anim.SetBool("isRunningBack", true);
+                var move = -1 * movementSpeed * Time.deltaTime;
+                transform.Translate(new Vector3(0, 0, move));
+            }
+            else if (Input.GetKey(KeyCode.W))
+            {
+                anim.SetBool("isRunning", true);
+                var move = 1 * movementSpeed * Time.deltaTime;
+                transform.Translate(new Vector3(0, 0, move));
+            }
+
+
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.S))
+                {
+                    anim.SetBool("strafeLeft", true);
+                }
+                else
+                {
+                    anim.SetBool("strafeLeft", false);
+                }
+
+                var move = -1 * movementSpeed * Time.deltaTime;
+                transform.Translate(new Vector3(move, 0, 0));
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.S))
+                {
+                    anim.SetBool("strafeRight", true);
+                }
+                else
+                {
+                    anim.SetBool("strafeRight", false);
+                }
+
+                var move = 1 * movementSpeed * Time.deltaTime;
+                transform.Translate(new Vector3(move, 0, 0));
+            }
         }
 
-        if (Input.GetKey(KeyCode.W))
+        if(CanJump())
         {
-            anim.SetBool("isRunning", true);
-            var move = 1 * movementSpeed * Time.deltaTime;
-            transform.Translate(new Vector3(0, 0, move));
-        }
-
-        
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            var move = -1 * movementSpeed * Time.deltaTime;
-            transform.Translate(new Vector3(move, 0, 0));
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            var move = 1 * movementSpeed * Time.deltaTime;
-            transform.Translate(new Vector3(move, 0, 0));
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb.AddForce(new Vector3(0, 450, 0));
+            }
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+       
+
+
+
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            rb.AddForce(new Vector3(0,500, 0));
+            if (!frontSlash)
+            {
+                frontSlash = true;
+                anim.SetBool("frontSlash", true);
+            }
         }
+    }
+
+
+    bool CanMove()
+    {
+        return !frontSlash;
+    }
+
+
+    bool CanJump()
+    {
+        return !frontSlash;
     }
 }

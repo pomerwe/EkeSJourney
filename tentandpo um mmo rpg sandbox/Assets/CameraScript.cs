@@ -12,6 +12,7 @@ public class CameraScript : MonoBehaviour
     private float yaw = 0.0f;
     private float pitch = 0.0f;
 
+
     bool mouseLocked = true;
 
     Vector2 lastMousePos = Vector2.zero;
@@ -33,17 +34,22 @@ public class CameraScript : MonoBehaviour
             pitch = -3.5f;
         }
 
+       
 
-        float desiredAngle = maria.transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
-        var pos = maria.transform.position - (rotation * offset/cameraDistance);
-        pos.y = pos.y + 1;
-        pos.y += pitch;
-        //pos.x += -1;
-        transform.position = pos;
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            float desiredAngle = maria.transform.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
+            var pos = maria.transform.position - (rotation * offset / cameraDistance);
+            pos.y = pos.y + 1;
+            pos.y += pitch;
+            transform.position = pos;
+        }
+
         var lookMaria = maria.transform.position;
         //lookMaria.x -= 0.5f;
-        lookMaria.y +=  1;
+        lookMaria.y += 1;
+
         transform.LookAt(lookMaria);
     }
 
@@ -59,10 +65,13 @@ public class CameraScript : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+        if(Cursor.lockState == CursorLockMode.Locked)
+        {
+            yaw += mouseSensibility * Input.GetAxis("Mouse X");
+
+            maria.transform.eulerAngles = new Vector3(0, yaw, 0.0f);
+        }
         
-        yaw += mouseSensibility * Input.GetAxis("Mouse X");
-        
-        maria.transform.eulerAngles = new Vector3(0, yaw, 0.0f);
 
         //SystemUtil.SetCursorPos(x, y);
 
