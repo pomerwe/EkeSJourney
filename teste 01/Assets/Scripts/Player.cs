@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public float speed = 4;
     public float jumpForce = 8;
     public float dashLength = 5;
-    private float dashSpeed = 15;
+    public float dashSpeed = 15;
 
     public bool isjumping = false;
     public bool doublejump = false;
