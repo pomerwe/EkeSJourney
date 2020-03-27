@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Direction
+{
+    Left,Right,Up,Down
+}
+
 public class Player : MonoBehaviour
 {
     public int score = 0;
 
     public float speed = 4;
     public float jumpForce = 8;
+    public float dashLength = 5;
+    private float dashSpeed = 15;
 
-    public bool isjumping;
-    public bool doublejump;
+    public bool isjumping = false;
+    public bool doublejump = false;
+    public bool isDashing = false;
+    
+    public Direction dashDirection = Direction.Left;
+    public Vector2 dashPosition = Vector2.zero;
 
     [SerializeField]
     private LayerMask groundLayer;
@@ -32,12 +43,77 @@ public class Player : MonoBehaviour
     {
         Move();
         Jump();
+        Dash();
     }
+
+
+    void Dash()
+    {
+        
+        if (isDashing)
+        {
+            ResetYForce();
+            var dashDir = dashDirection == Direction.Right ? Vector2.right : Vector2.left;
+            rig.MovePosition(rig.position + dashDir * dashSpeed * 2 * Time.deltaTime);
+
+            if(dashDirection == Direction.Right)
+            {
+                if(transform.position.x > dashPosition.x)
+                {
+                    isDashing = false;
+                }
+            }
+            else
+            {
+                if (transform.position.x < dashPosition.x)
+                {
+                    isDashing = false;
+                }
+            }
+
+            
+        }
+
+
+
+        if (isjumping)
+        {
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (!doublejump)
+                {
+                    isDashing = true;
+                    //cancelaDoublejump
+                    doublejump = true;
+                    dashPosition = new Vector2(transform.position.x - 4, transform.position.y);
+                    dashDirection = Direction.Left;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!doublejump)
+                {
+                    isDashing = true;
+
+                    //cancelaDoublejump
+                    doublejump = true;
+                    dashPosition = new Vector2(transform.position.x + 4, transform.position.y);
+                    dashDirection = Direction.Right;
+                }
+            }
+        }
+        
+        
+        
+    }
+
     void Move()
     {
         Vector2 movement = rig.velocity;
         movement.x = Input.GetAxis("Horizontal") * speed;
         rig.velocity = movement;
+       
 
         if(Input.GetAxis("Horizontal") > 0f)
         {
@@ -77,7 +153,7 @@ public class Player : MonoBehaviour
                 {
                     ResetYForce();
                     rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                    doublejump = true;
+                    doublejump = true; 
                     anim.SetBool("double", true);
                 }
 
@@ -116,7 +192,16 @@ public class Player : MonoBehaviour
     {
         if(IsAttachedToWall())
         {
-            
+            isDashing = false;
+        }
+        if (IsGrounded())
+        {
+            isDashing = false;
+            isjumping = false;
+            doublejump = false;
+            anim.SetBool("jump", false);
+            anim.SetBool("double", false);
+            ResetYForce();
         }
     }
     void OnCollisionExit2D(Collision2D collision)
@@ -126,14 +211,7 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsGrounded())
-        {
-            isjumping = false;
-            doublejump = false;
-            anim.SetBool("jump", false);
-            anim.SetBool("double", false);
-            ResetYForce();
-        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D  coll)
@@ -158,6 +236,12 @@ public class Player : MonoBehaviour
         var velocity = rig.velocity;
         velocity.x = 0;
         rig.velocity = velocity;
+    }
+
+    public void ResetForces()
+    {
+        ResetXForce();
+        ResetYForce();
     }
 
 }
