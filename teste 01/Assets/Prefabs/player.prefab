@@ -120,10 +120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  speed: 5
-  jumpForce: 8
+  speed: 8
+  jumpForce: 13
   isjumping: 0
   doublejump: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!95 &7640154844475331613
 Animator:
   serializedVersion: 3
