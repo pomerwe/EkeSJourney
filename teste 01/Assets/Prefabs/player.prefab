@@ -122,8 +122,13 @@ MonoBehaviour:
   score: 0
   speed: 8
   jumpForce: 13
+  dashLength: 5
+  dashSpeed: 15
   isjumping: 0
   doublejump: 0
+  isDashing: 0
+  dashDirection: 0
+  dashPosition: {x: 0, y: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

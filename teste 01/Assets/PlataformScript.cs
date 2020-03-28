@@ -21,13 +21,14 @@ public class PlataformScript : MonoBehaviour
         }
         if(collision.gameObject.layer == 9)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
 
     void RemoveRigidbody()
     {
+        gameObject.SetActive(true);
         transform.eulerAngles = Vector3.zero;
         rig.velocity = Vector2.zero;
         rig = GetComponent<Rigidbody2D>();

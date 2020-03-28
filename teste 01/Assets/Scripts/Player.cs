@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,9 +20,17 @@ public class Player : MonoBehaviour
     public float dashSpeed = 15;
 
     public bool isjumping = false;
-    public bool doublejump = false;
+    public bool isDoubleJumping = false;
     public bool isDashing = false;
-    
+
+    public bool isFlipped = false;
+
+    public bool isWallJumping = false;
+    public bool attachedToWall = false;
+
+    private float extraHeightGround = 0.02f;
+    private float extraWidthWall = 0.025f;
+
     public Direction dashDirection = Direction.Left;
     public Vector2 dashPosition = Vector2.zero;
 
@@ -45,6 +54,10 @@ public class Player : MonoBehaviour
         Move();
         Jump();
         Dash();
+
+
+        Debug.DrawRay(capsCollider.bounds.center, Vector2.down * (capsCollider.bounds.extents.y + extraHeightGround));
+        Debug.DrawRay(capsCollider.bounds.center, Vector2.left * (capsCollider.bounds.extents.x + extraWidthWall));
     }
 
 
@@ -82,23 +95,23 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (!doublejump)
+                if (!isDoubleJumping)
                 {
                     isDashing = true;
                     //cancelaDoublejump
-                    doublejump = true;
+                    isDoubleJumping = true;
                     dashPosition = new Vector2(transform.position.x - 4, transform.position.y);
                     dashDirection = Direction.Left;
                 }
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!doublejump)
+                if (!isDoubleJumping)
                 {
                     isDashing = true;
 
                     //cancelaDoublejump
-                    doublejump = true;
+                    isDoubleJumping = true;
                     dashPosition = new Vector2(transform.position.x + 4, transform.position.y);
                     dashDirection = Direction.Right;
                 }
@@ -111,31 +124,31 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        Vector2 movement = rig.velocity;
-        movement.x = Input.GetAxis("Horizontal") * speed;
-        rig.velocity = movement;
-       
 
-        if(Input.GetAxis("Horizontal") > 0f)
+        if(CanMove())
         {
-            anim.SetBool("walk", true);
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        }
-        if (Input.GetAxis("Horizontal") < 0f)
-        {
-            anim.SetBool("walk", true);
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-
-        }
-        if (Input.GetAxis("Horizontal") == 0f)
-        {
-            ResetXForce();
+            Vector2 movement = rig.velocity;
+            movement.x = Input.GetAxis("Horizontal") * speed;
             rig.velocity = movement;
-            anim.SetBool("walk", false);
+
+
+            if (Input.GetAxis("Horizontal") > 0f)
+            {
+                anim.SetBool("walk", true);
+                Flip(Direction.Right);
+            }
+            if (Input.GetAxis("Horizontal") < 0f)
+            {
+                anim.SetBool("walk", true);
+                Flip(Direction.Left);
+            }
+            if (Input.GetAxis("Horizontal") == 0f)
+            {
+                ResetXForce();
+                rig.velocity = movement;
+                anim.SetBool("walk", false);
+            }
         }
-
-
-
     }
     void Jump()
     {
@@ -143,18 +156,16 @@ public class Player : MonoBehaviour
         {
             if (!isjumping)
             {
-                ResetYForce();
-                rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                DoJump();
                 isjumping = true;
                 anim.SetBool("jump", true);
             }
             else
             {
-                if(!doublejump)
+                if(!isDoubleJumping)
                 {
-                    ResetYForce();
-                    rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                    doublejump = true; 
+                    DoJump();
+                    isDoubleJumping = true; 
                     anim.SetBool("double", true);
                 }
 
@@ -163,13 +174,45 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void DoJump()
+    {
+        //Quando for wallJump
+        if (IsAttachedToWall() && !IsGrounded())
+        {
+            WallJump();
+        }
+        //Quando não tiver no wall Jump
+        else
+        {
+            NormalJump();
+        }
+    }
+
+    public void NormalJump()
+    {
+        ResetYForce();
+        rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+    }
+
+    public void WallJump()
+    {
+        ResetForces();
+        isWallJumping = true;
+        var xForce = !isFlipped ? -jumpForce : jumpForce;
+        rig.AddForce(new Vector2(xForce * 0.62f, jumpForce), ForceMode2D.Impulse);
+
+        anim.SetBool("wallJump", false);
+        if (attachedToWall)
+        {
+            isDoubleJumping = true;
+            attachedToWall = false;
+        }
+    }
 
     private bool IsGrounded()
     {
-        float extraHeighText = 0.01f;
-        RaycastHit2D raycastHit = Physics2D.Raycast(capsCollider.bounds.center, Vector2.down, capsCollider.bounds.extents.y + extraHeighText, groundLayer);
-        Color rayColor = Color.green;
-        if (raycastHit.collider != null)
+        RaycastHit2D raycastGround = (Physics2D.Raycast(capsCollider.bounds.center, Vector2.down, capsCollider.bounds.extents.y + extraHeightGround, groundLayer));
+        if (raycastGround.collider != null)
         {
            return true;
         }
@@ -178,10 +221,9 @@ public class Player : MonoBehaviour
 
     private bool IsAttachedToWall()
     {
-        float extraHeighText = 0.01f;
-        RaycastHit2D raycastHitLeft = Physics2D.Raycast(capsCollider.bounds.center, Vector2.left, capsCollider.bounds.extents.y + extraHeighText, groundLayer);
-        RaycastHit2D raycastHitRight = Physics2D.Raycast(capsCollider.bounds.center, Vector2.right, capsCollider.bounds.extents.y + extraHeighText, groundLayer);
-        Color rayColor = Color.green;
+        RaycastHit2D raycastHitLeft = Physics2D.Raycast(capsCollider.bounds.center, Vector2.left, capsCollider.bounds.extents.x + extraWidthWall, groundLayer);
+        RaycastHit2D raycastHitRight = Physics2D.Raycast(capsCollider.bounds.center, Vector2.right, capsCollider.bounds.extents.x + extraWidthWall, groundLayer);
+
         if (raycastHitLeft.collider != null || raycastHitRight.collider != null)
         {
            return true;
@@ -189,29 +231,88 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    private void WallFlipChecker()
+    {
+        RaycastHit2D raycastHitLeft = Physics2D.Raycast(capsCollider.bounds.center, Vector2.left, capsCollider.bounds.extents.x + extraWidthWall, groundLayer);
+        RaycastHit2D raycastHitRight = Physics2D.Raycast(capsCollider.bounds.center, Vector2.right, capsCollider.bounds.extents.x + extraWidthWall, groundLayer);
+
+        if (raycastHitLeft.collider != null)
+        { 
+            if (raycastHitLeft.collider.gameObject.layer == 8)
+            {
+                Flip(Direction.Left);
+            }
+        }
+
+        if (raycastHitRight.collider != null)
+        {
+            if (raycastHitRight.collider.gameObject.layer == 8)
+            {
+                Flip(Direction.Right);
+            }
+        }
+
+    }
+
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(IsAttachedToWall())
+        WallFlipChecker();
+
+        WallJumpHandling();
+
+        GroundedHandling();
+    }
+
+    void WallJumpHandling()
+    {
+        if (IsAttachedToWall())
         {
             isDashing = false;
+            isDoubleJumping = false;
+            attachedToWall = true;
+            isjumping = true;
+
+            anim.SetBool("wallJump", true);
+            anim.SetBool("jump", true);
         }
+    }
+
+    void GroundedHandling()
+    {
         if (IsGrounded())
         {
             isDashing = false;
             isjumping = false;
-            doublejump = false;
+            isDoubleJumping = false;
+            isWallJumping = false;
+            attachedToWall = false;
             anim.SetBool("jump", false);
             anim.SetBool("double", false);
+            anim.SetBool("wallJump", false);
             ResetYForce();
         }
     }
+
     void OnCollisionExit2D(Collision2D collision)
     {
-       
+        if (!IsAttachedToWall())
+        {
+            anim.SetBool("wallJump", false);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if(IsAttachedToWall())
+        {
+            if(!IsGrounded())
+            {
+                anim.SetBool("jump", true);
+                isjumping = true;
+            }
+            isWallJumping = false;
+        }
+
         if (collision.gameObject.layer == 9)
         {
             SceneManager.LoadScene("Lvl_1");
@@ -248,4 +349,25 @@ public class Player : MonoBehaviour
         ResetYForce();
     }
 
+    public bool CanMove()
+    {
+        return !isDashing &&
+               !isWallJumping;
+    }
+
+
+    public void Flip(Direction dir)
+    {
+        if(dir == Direction.Left)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            isFlipped = true;
+        }
+
+        if(dir == Direction.Right)
+        {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            isFlipped = false;
+        }
+    }
 }

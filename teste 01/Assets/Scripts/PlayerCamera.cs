@@ -31,7 +31,7 @@ public class PlayerCamera : MonoBehaviour
         if (Math.Abs(transform.position.y - player.transform.position.y) > 2)
         {
             currentY = (int)player.transform.position.y + 2;
-            if(Math.Abs(transform.position.y - player.transform.position.y) > 8)
+            if(Math.Abs(transform.position.y - player.transform.position.y) > 8.5)
             {
                 urgencyCamera = true;
             }
