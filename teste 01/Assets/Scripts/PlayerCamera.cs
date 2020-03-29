@@ -68,7 +68,13 @@ public class PlayerCamera : MonoBehaviour
         }
         transform.position = pos;
         //transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+    }
 
-
+    public void CameraReset()
+    {
+        var pos = transform.position;
+        pos.x = player.transform.position.x;
+        pos.y = player.transform.position.y;
+        transform.position = pos;
     }
 }

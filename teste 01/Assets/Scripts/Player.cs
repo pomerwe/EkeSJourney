@@ -41,9 +41,15 @@ public class Player : MonoBehaviour
     private CapsuleCollider2D capsCollider;
     private Animator anim;
 
+
+    private GameController gameController;
+
+    public PlayerCamera camera;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameController = GameController.Instance;
         rig = GetComponent<Rigidbody2D>();
         capsCollider = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
@@ -177,9 +183,15 @@ public class Player : MonoBehaviour
     private void DoJump()
     {
         //Quando for wallJump
-        if (IsAttachedToWall() && !IsGrounded())
+        if ((IsAttachedToWall()) && !IsGrounded())
         {
             WallJump();
+        }
+        else if(attachedToWall)
+        {
+            anim.SetBool("wallJump", false);
+            isDoubleJumping = true;
+            attachedToWall = false;
         }
         //Quando não tiver no wall Jump
         else
@@ -313,7 +325,21 @@ public class Player : MonoBehaviour
             isWallJumping = false;
         }
 
+        //Death
         if (collision.gameObject.layer == 9)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        if (gameController.lastCheckpoint != Vector2.zero)
+        {
+            transform.position = gameController.lastCheckpoint;
+            camera.CameraReset();
+        }
+        else
         {
             SceneManager.LoadScene("Lvl_1");
         }
